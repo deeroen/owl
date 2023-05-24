@@ -1147,6 +1147,12 @@ describe("qweb parser", () => {
     });
   });
 
+  test("t-onclick without dash", async () => {
+    expect(() => parse(`<button t-onclick="add">Click</button>`)).toThrowError(
+      "Unknown QWeb directive: 't-onclick'"
+    );
+  });
+
   // ---------------------------------------------------------------------------
   // t-model
   // ---------------------------------------------------------------------------
@@ -1273,6 +1279,12 @@ describe("qweb parser", () => {
       on: { click: "someMethod" },
       slots: null,
     });
+  });
+
+  test("component with event handler", async () => {
+    expect(() => parse(`<MyComponent t-onclick="someMethod"/>`)).toThrowError(
+      "unsupported directive on Component: t-onclick"
+    );
   });
 
   test("component with t-ref", async () => {
